@@ -33,10 +33,10 @@ App = {
     }
     web3 = new Web3(App.web3Provider);
 
-    return App.initContract();
+    return App.initContracts();
   },
 
-  initContract: function() {
+  initContracts: function() {
     $.getJSON('Adoption.json', function(data) {
       // Get the necessary contract artifact file and instantiate it with truffle-contract
       var AdoptionArtifact = data;
@@ -49,11 +49,33 @@ App = {
       return App.markAdopted();
     });
     
+    $.getJSON('PluckCoin.json', function(data) {
+      // Get the necessary contract artifact file and instantiate it with truffle-contract
+      var PluckCoinArtifact = data;
+      App.contracts.PluckCoin = TruffleContract(PluckCoinArtifact);
+
+      // Set the provider for our contract
+      App.contracts.PluckCoin.setProvider(App.web3Provider);
+
+    });
+
+    $.getJSON('PlatoonManagement.json', function(data) {
+      // Get the necessary contract artifact file and instantiate it with truffle-contract
+      var PlatoonManagementArtifact = data;
+      App.contracts.PlatoonManagement = TruffleContract(PlatoonManagementArtifact);
+
+      // Set the provider for our contract
+      App.contracts.PlatoonManagement.setProvider(App.web3Provider);
+
+    });
+
+
     return App.bindEvents();
   },
 
   bindEvents: function() {
     $(document).on('click', '.btn-adopt', App.handleAdopt);
+    $(document).on('click', '.btn-transfer', App.handleTransfer);
   },
 
   markAdopted: function(adopters, account) {
@@ -81,10 +103,10 @@ App.contracts.Adoption.deployed().then(function(instance) {
 
     var adoptionInstance;
 
-web3.eth.getAccounts(function(error, accounts) {
-  if (error) {
-    console.log(error);
-  }
+    web3.eth.getAccounts(function(error, accounts) {
+    if (error) {
+      console.log(error);
+    }
 
   var account = accounts[0];
 
@@ -95,6 +117,28 @@ web3.eth.getAccounts(function(error, accounts) {
         return adoptionInstance.adopt(petId, {from: account});
       }).then(function(result) {
         return App.markAdopted();
+      }).catch(function(err) {
+        console.log(err.message);
+      });
+    });
+  },
+
+  handleTransfer: function(event){
+    event.preventDefault();
+     var petId = parseInt($(event.target).data('id'));
+    web3.eth.getAccounts(function(error, accounts) {
+    if (error) {
+      console.log(error);
+    }
+
+    var account = accounts[0];
+
+      App.contracts.PluckCoin.deployed().then(function(instance) {
+        pluckCoinInstance = instance;
+        // Execute adopt as a transaction by sending account
+        return pluckCoinInstance.balanceOf();
+      }).then(function(result) {
+        console.log('something happened!');
       }).catch(function(err) {
         console.log(err.message);
       });
