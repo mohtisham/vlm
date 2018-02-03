@@ -1,5 +1,6 @@
 pragma solidity ^0.4.17;
 
+import "./StandardToken.sol";
 
 contract PluckCoin is StandardToken { 
 
@@ -31,7 +32,7 @@ contract PluckCoin is StandardToken {
         fundsWallet             = msg.sender;                           // The owner of the contract gets ETH
     }
 
-    function() payable{
+    function() payable public {
         totalEthInWei = totalEthInWei + msg.value;
         uint256 amount = msg.value * unitsOneEthCanBuy;
         if (balances[fundsWallet] < amount) {
@@ -48,7 +49,7 @@ contract PluckCoin is StandardToken {
     }
 
     /* Approves and then calls the receiving contract */
-    function approveAndCall(address _spender, uint256 _value, bytes _extraData) returns (bool success) {
+    function approveAndCall (address _spender, uint256 _value, bytes _extraData) returns (bool success) {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
