@@ -10,25 +10,21 @@ contract PlatoonManagement {
 		uint positionInPlatoon;
 	}
 	
-	function PlatoonManagement () {
+	function PlatoonManagement () public {
 
 	}
 
-	/*mapping (uint => Platoon) platoons;*/
-	Platoon[] platoons; 
-	function joinPlatoon () returns(bool res) {
+	Platoon[] public platoons; 
+	function joinPlatoon () public returns(bool res) {
 		/*Query the reputation from somewhere instead of hardcoding it*/
 		uint reputation = 10;
 		if (reputation > 5){
 			/*joining*/
-			uint curNumTrucks = platoons.length;
-			uint newNumTrucks = curNumTrucks + 1;
-
 			address addr = msg.sender;
 			uint depositAmount = 5;
 			uint entryTime = block.timestamp;
-			uint positionInPlatoon = newNumTrucks;
-			platoons[curNumTrucks] = Platoon(addr, depositAmount, entryTime, positionInPlatoon);
+			uint positionInPlatoon = platoons.length + 1;
+			platoons.push(Platoon(addr, depositAmount, entryTime, positionInPlatoon));
 		} else {
 			/*not joining*/
 			revert();
@@ -36,7 +32,7 @@ contract PlatoonManagement {
 		return true;
 	}
 
-	function leavePlatoon () returns(bool res) {
+	function leavePlatoon () public returns(bool res) {
 		/*Pay according to time spend in the platoon.*/
 		for (uint i = 0; i < platoons.length; i++) {
 			if(msg.sender == platoons[i].addr){
