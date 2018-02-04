@@ -173,7 +173,7 @@ App.contracts.Adoption.deployed().then(function(instance) {
     $("#platoonRow").append(truck);
     truck.find('.btn-action').text("Leave");
     truck.find('.btn-action').addClass("btn-leave");
-    petTemplate.find('.btn-action').removeClass("btn-join");
+    truck.find('.btn-action').removeClass("btn-join");
     alert('Join!');
 
   },
@@ -184,7 +184,7 @@ App.contracts.Adoption.deployed().then(function(instance) {
     $("#trucksRow").append(truck);
     truck.find('.btn-action').text("Join");
     truck.find('.btn-action').addClass("btn-join");
-    petTemplate.find('.btn-action').removeClass("btn-leave");
+    truck.find('.btn-action').removeClass("btn-leave");
     alert('Leave');
   }
 
