@@ -7,31 +7,31 @@ App = {
        // Load trucks.
     $.getJSON('../trucks.json', function(data) {
       var normalRow = $('#trucksRow');
-      var petTemplate = $('#trucksTemplate');
+      var truckTemplate = $('#trucksTemplate');
       var platoonRow = $('#platoonRow');
       var platoonTemplate = $('#platoonTemplate');
       platoonTemplate.find('.panel-title').text('Super Platoon');
 
       for (i = 0; i < data.length; i ++) {
-        petTemplate.attr("id", i);
-        petTemplate.find('.truck-name').text(data[i].name);
-        petTemplate.find('img').attr('src', data[i].picture);
-        petTemplate.find('.truck-public-address').text(data[i].publicaddress);
-        petTemplate.find('.truck-current-balance').text(data[i].currentbalance);
-        petTemplate.find('.truck-timeofentry').text(data[i].timeofentry);
-        petTemplate.find('.truck-reputation').text(data[i].reputation);
-        petTemplate.find('.btn-action').attr('data-id', data[i].id);
+        truckTemplate.attr("id", i);
+        truckTemplate.find('.truck-name').text(data[i].name);
+        truckTemplate.find('img').attr('src', data[i].picture);
+        truckTemplate.find('.truck-public-address').text(data[i].publicaddress);
+        truckTemplate.find('.truck-current-balance').text(data[i].currentbalance);
+        truckTemplate.find('.truck-timeofentry').text(data[i].timeofentry);
+        truckTemplate.find('.truck-reputation').text(data[i].reputation);
+        truckTemplate.find('.btn-action').attr('data-id', data[i].id);
         if(data[i].platoonSubscribed != 'undefined' && data[i].platoonSubscribed.length > 0){
-          petTemplate.find('.btn-action').text("Leave");
-          petTemplate.find('.btn-action').addClass("btn-leave");
-          petTemplate.find('.btn-action').removeClass("btn-join");
-          platoonTemplate.append(petTemplate.html());
+          truckTemplate.find('.btn-action').text("Leave");
+          truckTemplate.find('.btn-action').addClass("btn-leave");
+          truckTemplate.find('.btn-action').removeClass("btn-join");
+          platoonTemplate.append(truckTemplate.html());
         }
         else{
-          petTemplate.find('.btn-action').text("Join");
-          petTemplate.find('.btn-action').addClass("btn-join");
-          petTemplate.find('.btn-action').removeClass("btn-leave");
-          normalRow.append(petTemplate.html());  
+          truckTemplate.find('.btn-action').text("Join");
+          truckTemplate.find('.btn-action').addClass("btn-join");
+          truckTemplate.find('.btn-action').removeClass("btn-leave");
+          normalRow.append(truckTemplate.html());  
         }
         
       }
@@ -94,8 +94,6 @@ App = {
   },
 
   bindEvents: function() {
-    $(document).on('click', '.btn-adopt', App.handleAdopt);
-    $(document).on('click', '.btn-transfer', App.handleTransfer);
     $(document).on('click', '.btn-leave', App.handleLeavePlatoon);
     $(document).on('click', '.btn-join', App.handleJoinPlatoon);
   },
@@ -174,8 +172,6 @@ App.contracts.Adoption.deployed().then(function(instance) {
     truck.find('.btn-action').text("Leave");
     truck.find('.btn-action').addClass("btn-leave");
     truck.find('.btn-action').removeClass("btn-join");
-    alert('Join!');
-
   },
 
   handleLeavePlatoon: function(event){
@@ -185,7 +181,6 @@ App.contracts.Adoption.deployed().then(function(instance) {
     truck.find('.btn-action').text("Join");
     truck.find('.btn-action').addClass("btn-join");
     truck.find('.btn-action').removeClass("btn-leave");
-    alert('Leave');
   }
 
 };
