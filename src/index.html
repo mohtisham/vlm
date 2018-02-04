@@ -27,15 +27,11 @@
         </div>
       </div>
 
-      <div id="petsRow" class="row">
-        <!-- PETS LOAD HERE -->
-      </div>
-
 
       <div id="platoonRow" class="row">
         <!-- TRUCKS! LOAD HERE -->
       </div>
-
+      <hr>
        <div id="trucksRow" class="row">
         <!-- TRUCKS! LOAD HERE -->
       </div>
@@ -62,7 +58,7 @@
             <br/><br/>
             <strong>Vehicle Name</strong>: <span class="truck-name">Golden Retriever</span><br/>
             <strong>Public Address</strong>: <span class="truck-public-address">Golden Retriever</span><br/>
-            <strong>Current Balance</strong>: <span class="truck-current-balance">3</span><br/>
+            <strong>Current Balance</strong>: <span class="truck-current-balance">3</span>&nbsp;PLC<br/>
             <strong>Time of entery in platoon</strong>: <span class="truck-timeofentry">3</span><br/>
             <strong>Reputation Score</strong>: <span class="truck-reputation">Warren, MI</span><br/><br/>
             <button class="btn btn-default btn-action" type="button" data-id="0">Leave Platoon</button>
@@ -72,9 +68,32 @@
       </div>
     </div>
 
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Leave Platoon</h4>
+          </div>
+          <div class="" style="padding:10px">
+            Please confirm to leave:
+            <h5>Total Time Spent: <span class="total-timespent"></span></h5>
+            <h5>Total Cost: <span class="total-amount"></span></h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="modal-btn-si">Yes</button>
+            <button type="button" class="btn btn-primary" id="modal-btn-no">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert" role="alert" id="result"></div>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
     
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
