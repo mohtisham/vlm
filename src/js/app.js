@@ -3,21 +3,41 @@ App = {
   contracts: {},
 
   init: function() {
-    // Load pets.
-    $.getJSON('../pets.json', function(data) {
-      var petsRow = $('#petsRow');
-      var petTemplate = $('#petTemplate');
+
+       // Load trucks.
+    $.getJSON('../trucks.json', function(data) {
+      var normalRow = $('#trucksRow');
+      var petTemplate = $('#trucksTemplate');
+      var platoonRow = $('#platoonRow');
+      var platoonTemplate = $('#platoonTemplate');
+      platoonTemplate.find('.panel-title').text('Super Platoon');
 
       for (i = 0; i < data.length; i ++) {
-        petTemplate.find('.panel-title').text(data[i].name);
+        petTemplate.attr("id", i);
+        petTemplate.find('.truck-name').text(data[i].name);
         petTemplate.find('img').attr('src', data[i].picture);
-        petTemplate.find('.pet-breed').text(data[i].breed);
-        petTemplate.find('.pet-age').text(data[i].age);
-        petTemplate.find('.pet-location').text(data[i].location);
-        petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
-
-        petsRow.append(petTemplate.html());
+        petTemplate.find('.truck-public-address').text(data[i].publicaddress);
+        petTemplate.find('.truck-current-balance').text(data[i].currentbalance);
+        petTemplate.find('.truck-timeofentry').text(data[i].timeofentry);
+        petTemplate.find('.truck-reputation').text(data[i].reputation);
+        petTemplate.find('.btn-action').attr('data-id', data[i].id);
+        if(data[i].platoonSubscribed != 'undefined' && data[i].platoonSubscribed.length > 0){
+          petTemplate.find('.btn-action').text("Leave");
+          petTemplate.find('.btn-action').addClass("btn-leave");
+          petTemplate.find('.btn-action').removeClass("btn-join");
+          platoonTemplate.append(petTemplate.html());
+        }
+        else{
+          petTemplate.find('.btn-action').text("Join");
+          petTemplate.find('.btn-action').addClass("btn-join");
+          petTemplate.find('.btn-action').removeClass("btn-leave");
+          normalRow.append(petTemplate.html());  
+        }
+        
       }
+
+      platoonRow.append(platoonTemplate.html());
+
     });
 
     return App.initWeb3();
@@ -29,7 +49,7 @@ App = {
       App.web3Provider = web3.currentProvider;
     } else {
       // If no injected web3 instance is detected, fall back to Ganache
-      App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+      App.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
     }
     web3 = new Web3(App.web3Provider);
 
@@ -76,6 +96,8 @@ App = {
   bindEvents: function() {
     $(document).on('click', '.btn-adopt', App.handleAdopt);
     $(document).on('click', '.btn-transfer', App.handleTransfer);
+    $(document).on('click', '.btn-leave', App.handleLeavePlatoon);
+    $(document).on('click', '.btn-join', App.handleJoinPlatoon);
   },
 
   markAdopted: function(adopters, account) {
@@ -143,6 +165,27 @@ App.contracts.Adoption.deployed().then(function(instance) {
         console.log(err.message);
       });
     });
+  },
+
+  handleJoinPlatoon: function(event){
+    event.preventDefault();
+    var truck = $(event.target).closest( ".panel-truck" ).parent();
+    $("#platoonRow").append(truck);
+    truck.find('.btn-action').text("Leave");
+    truck.find('.btn-action').addClass("btn-leave");
+    petTemplate.find('.btn-action').removeClass("btn-join");
+    alert('Join!');
+
+  },
+
+  handleLeavePlatoon: function(event){
+    event.preventDefault();
+    var truck = $(event.target).closest( ".panel-truck" ).parent();
+    $("#trucksRow").append(truck);
+    truck.find('.btn-action').text("Join");
+    truck.find('.btn-action').addClass("btn-join");
+    petTemplate.find('.btn-action').removeClass("btn-leave");
+    alert('Leave');
   }
 
 };

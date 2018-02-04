@@ -1,0 +1,46 @@
+[
+  {
+    "id": 0,
+    "name": "Felix Truck",
+    "picture": "images/sample_truck_1.jpg",
+    "publicaddress": "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
+    "currentbalance": "Scottish Terrier",
+    "timeofentry": "Lisco, Alabama",
+    "reputation": "5",
+    "platoonSubscribed": "superPlatoon",
+    "platoonPosition": 1
+  },
+  {
+    "id": 1,
+    "name": "Sven Truck",
+    "picture": "images/sample_truck_2.jpg",
+    "publicaddress": "0xf17f52151EbEF6C7334FAD080c5704D77216b732",
+    "currentbalance": "Scottish Terrier",
+    "timeofentry": "Lisco, Alabama",
+    "reputation": "4",
+    "platoonSubscribed": "superPlatoon",
+    "platoonPosition": 2
+  },
+  {
+    "id": 2,
+    "name": "Daniel Truck",
+    "picture": "images/sample_truck_3.jpg",
+    "publicaddress": "0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef",
+    "currentbalance": "Scottish Terrier",
+    "timeofentry": "Lisco, Alabama",
+    "reputation": "Lisco, Alabama",
+    "platoonSubscribed": "superPlatoon",
+    "platoonPosition": 3
+  },
+  {
+    "id": 3,
+    "name": "Mad Truck",
+    "picture": "images/sample_truck_4.jpg",
+    "publicaddress": "0x821aEa9a577a9b44299B9c15c88cf3087F3b5544",
+    "currentbalance": "Scottish Terrier",
+    "timeofentry": "Lisco, Alabama",
+    "reputation": "Lisco, Alabama",
+    "platoonSubscribed": "",
+    "platoonPosition": 0
+  }
+]
